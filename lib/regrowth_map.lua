@@ -228,11 +228,25 @@ function RegrowthSingleStepArray()
     end
 end
 
+-- Check if a chunk has any non enemy/neutral entities in it. (Ideally this should only return true if there is some
+-- player owned/created entity in it.)
+function CheckChunkHasStuff(chunk_pos)
+    local chunk_area = GetAreaFromChunkPos(chunk_pos)
+    local entities = game.surfaces[GAME_SURFACE_NAME].find_entities_filtered{area=chunk_area,
+                                                                            force={"enemy", "neutral"},
+                                                                            invert=true}
+    if (#entites > 0) then
+        return true
+    end
+
+    return false
+end
+
 -- Remove all chunks at same time to reduce impact to FPS/UPS
 function OarcRegrowthRemoveAllChunks()
     for key,c_remove in pairs(global.rg.removal_list) do
         local c_pos = c_remove.pos
-
+        
         -- Confirm chunk is still expired
         if (not global.rg.map[c_pos.x] or not global.rg.map[c_pos.x][c_pos.y]) then
 
@@ -242,6 +256,10 @@ function OarcRegrowthRemoveAllChunks()
 
             -- If it is a normal timeout removal, don't do it if there is pollution in the chunk.
             elseif (game.surfaces[GAME_SURFACE_NAME].get_pollution({c_pos.x*32,c_pos.y*32}) > 0) then
+                global.rg.map[c_pos.x][c_pos.y] = game.tick
+
+            -- Entity check? Not sure how costly this is...
+            elseif (CheckChunkHasStuff(c_pos)) then
                 global.rg.map[c_pos.x][c_pos.y] = game.tick
 
             -- Else delete the chunk
