@@ -1,12 +1,12 @@
 {
-  "name": "oarc-mod",
-  "version": "2.1.9",
+  "name": "oarc-dev",
+  "version": "3.1.0",
   "factorio_version": "2.0",
-  "title": "Oarc Multiplayer Spawn",
-  "author": "Oarcinae",
+  "title": "Oarc Dev",
+  "author": "Oarcinae, plexpt",
   "contact": "Mod Discussion Page, oarcinae@gmail.com, Discord:oarc",
   "homepage": "https://github.com/Oarcinae/FactorioScenarioMultiplayerSpawn",
-  "description": "[[Description is in locale file!]]",
+  "description": "A rapid development version of Orac. Quickly update some new features. May be merged into the upstream oarc-mod after it stabilizes.",
   "dependencies": [
     "base >= 2.0.0",
     "? space-age",

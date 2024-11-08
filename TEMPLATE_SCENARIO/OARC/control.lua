@@ -17,7 +17,7 @@
 
 -- Check if the OARC mod is loaded. Other than that, it's an empty scenario!
 script.on_init(function(event)
-    if not script.active_mods["oarc-mod"] then
+    if not script.active_mods["oarc-dev"] then
         error("OARC mod not found! This scenario is intended to be run with the OARC mod!")
     end
 end)
